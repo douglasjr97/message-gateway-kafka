@@ -1,11 +1,8 @@
-package br.com.nerak.api_payment.entity;
+package br.com.nerak.apipayment.entity;
 
-import br.com.nerak.api_payment.entity.enums.PaymentStatus;
+import br.com.nerak.apipayment.entity.enums.InvoiceStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -13,8 +10,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class PaymentSlipEntity {
+public class InvoiceEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +22,7 @@ public class PaymentSlipEntity {
     private String barCode;
 
     @Column(name = "status payment")
-    private PaymentStatus paymentStatus;
+    private InvoiceStatus invoiceStatus;
 
     @Column(name = "creation Date")
     private LocalDateTime createdAt;

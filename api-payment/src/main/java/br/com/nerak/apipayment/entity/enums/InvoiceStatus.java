@@ -1,6 +1,6 @@
-package br.com.nerak.api_payment.entity.enums;
+package br.com.nerak.apipayment.entity.enums;
 
-public enum PaymentStatus {
+public enum InvoiceStatus {
     INITIALIZED,
     VALIDATED,
     VALIDATION_ERROR,
