@@ -3,6 +3,7 @@ package br.com.nerak.apipayment.controller;
 import br.com.nerak.apipayment.dto.InvoiceDTO;
 import br.com.nerak.apipayment.dto.InvoiceRequestDTO;
 import br.com.nerak.apipayment.service.InvoiceService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ public class InvoiceController {
         this.invoiceService = invoiceService;
     }
     @PostMapping
-    public ResponseEntity<InvoiceDTO>save(@RequestBody InvoiceRequestDTO invoiceRequestDTO){
+    public ResponseEntity<InvoiceDTO> save(@Valid @RequestBody InvoiceRequestDTO invoiceRequestDTO){
         var invoice = invoiceService.save(invoiceRequestDTO.getBarCode());
         return new ResponseEntity<>(invoice, HttpStatus.CREATED);
     }

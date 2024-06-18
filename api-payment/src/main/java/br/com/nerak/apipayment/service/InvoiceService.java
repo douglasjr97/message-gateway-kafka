@@ -6,6 +6,7 @@ import br.com.nerak.apipayment.entity.InvoiceEntity;
 import br.com.nerak.apipayment.entity.enums.InvoiceStatus;
 import br.com.nerak.apipayment.mapper.InvoiceMapper;
 import br.com.nerak.apipayment.repository.InvoiceRepository;
+import br.com.nerak.apipayment.service.kafka.InvoiceProducer;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -14,9 +15,11 @@ import java.time.LocalDateTime;
 public class InvoiceService {
 
     private final InvoiceRepository invoiceRepository;
+    private final InvoiceProducer invoiceProducer;
 
-    public InvoiceService(InvoiceRepository invoiceRepository) {
+    public InvoiceService(InvoiceRepository invoiceRepository, InvoiceProducer invoiceProducer) {
         this.invoiceRepository = invoiceRepository;
+        this.invoiceProducer = invoiceProducer;
     }
 
     public InvoiceDTO save(String barcode){
@@ -32,8 +35,10 @@ public class InvoiceService {
                 .updatedAt(LocalDateTime.now())
                 .build();
 
+        var invoiceDTO = InvoiceMapper.toDTO(invoiceEntity);
         invoiceRepository.save(invoiceEntity);
-        return InvoiceMapper.toDTO(invoiceEntity);
+        invoiceProducer.sendMessage(invoiceDTO);
+        return invoiceDTO;
 
     }
 
