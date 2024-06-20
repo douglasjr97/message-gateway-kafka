@@ -1,0 +1,15 @@
+{
+    "type": "record",
+    "namespace": "br.com.nerak.avro",
+    "name": "Invoice",
+    "fields": [
+        {
+            "name": "barCode",
+            "type": "string"
+        },
+        {
+            "name": "invoiceStatus",
+            "type": "int"
+        }
+    ]
+}
