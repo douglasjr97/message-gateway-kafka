@@ -35,11 +35,9 @@ public class InvoiceService {
                 .updatedAt(LocalDateTime.now())
                 .build();
 
-        var invoiceDTO = InvoiceMapper.toDTO(invoiceEntity);
         invoiceRepository.save(invoiceEntity);
-        invoiceProducer.sendMessage(invoiceDTO);
-        return invoiceDTO;
-
+        invoiceProducer.sendMessage(InvoiceMapper.toAvro(invoiceEntity));
+        return InvoiceMapper.toDTO(invoiceEntity);
     }
 
 }
